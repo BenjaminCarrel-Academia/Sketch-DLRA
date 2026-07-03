@@ -6,32 +6,46 @@ oblique projections*.
 
 ## Abstract
 
-We study sketch-based dynamical low-rank approximation (DLRA) for
-matrix differential equations. Two natural ways of incorporating a
-random sketch into the tangent-space projection are compared: an
-*orthogonal* sketch DLRA, whose projection is the standard orthogonal
-projector onto the tangent space at every step, and an *oblique*
-sketch DLRA, whose projection is sketch-weighted. Despite an extra
-basis-orthogonalization cost, the orthogonal variant produces a
-trajectory that coincides with the classical DLRA solution and
-inherits its conservation behaviour, while the oblique variant solves
-a perturbed ODE whose invariants depend on the random sketches and
-can fail dramatically on non-LRC problems. Numerical experiments on
-Allen-Cahn, Fokker-Planck, and Vlasov-Poisson illustrate the practical
-implications.
+We study how sketching techniques from randomized numerical linear
+algebra can be incorporated into the dynamical low-rank approximation
+(DLRA) of large-scale matrix differential equations.
 
-## Author
+A natural approach is to sketch the Galerkin condition that defines
+the DLRA, which leads to an *oblique* tangent space projection. We
+show that this oblique projection is equivalent to the classical DLRA
+if and only if the sketches make the perpendicular component of the
+vector field orthogonal to the tangent space — automatic on
+low-rank-compatible (LRC) problems, but violated on non-LRC ones such
+as Vlasov-Poisson, where the oblique scheme drifts from the classical
+DLRA dynamics.
+
+As an alternative, we propose an *orthogonal* sketch DLRA that evolves
+sketch-orthogonal bases while using standard orthogonal projections
+for the dynamics. This approach preserves the geometric structure of
+the classical DLRA and is numerically stable. The computational
+advantage lies in replacing the Householder QR decomposition — the
+only BLAS-2 bottleneck of standard DLRA integrators — with a
+randomized Gram-Schmidt procedure that uses only BLAS-3 operations,
+making the basis update fully BLAS-3 and well-suited to modern
+accelerators.
+
+We derive sketch versions of the projector-splitting (KSL) and BUG
+integrators, and demonstrate the approach on the Allen-Cahn,
+Fokker-Planck, and Vlasov-Poisson equations.
+
+## Authors
 
 - Benjamin Carrel
+- Laura Grigori
 
 ## Citation
 
 ```
-@misc{carrel2025sketchdlra,
-  author = {Benjamin Carrel},
+@misc{carrel2026sketchdlra,
+  author = {Benjamin Carrel and Laura Grigori},
   title  = {Sketch low-rank dynamics: orthogonal vs.\ oblique projections},
-  year   = {2025},
-  note   = {Preprint}
+  year   = {2026},
+  note   = {Preprint; arXiv reference to follow}
 }
 ```
 
@@ -46,8 +60,8 @@ implications.
 ### Step 1: Clone the repository
 
 ```bash
-git clone https://github.com/BenjaminCarrel/sketch-dlra.git
-cd sketch-dlra
+git clone https://github.com/BenjaminCarrel/Sketch-DLRA.git
+cd Sketch-DLRA
 ```
 
 ### Step 2: Install dependencies
@@ -85,15 +99,15 @@ Each script in `experiments/` produces one of the five figures of the
 paper:
 
 ```bash
-python experiments/exp_allen-cahn.py                     # §6.1 Allen-Cahn relative error
-python experiments/exp_fokker-planck.py                  # §6.2 Fokker-Planck relative error
-python experiments/exp_vlasov-poisson_error.py           # §6.3 Vlasov-Poisson error & electric energy
-python experiments/exp_motivating.py                     # §1 motivating example (electric energy)
-python experiments/exp_vlasov-poisson_conservation.py    # §6.3 conservation laws
+python experiments/exp_motivating.py                     # §1   motivating example (electric energy)        ~1 min
+python experiments/exp_allen-cahn.py                     # §6.1 Allen-Cahn relative error                   ~3 min
+python experiments/exp_fokker-planck.py                  # §6.2 Fokker-Planck relative error                ~2 min
+python experiments/exp_vlasov-poisson_error.py           # §6.3 Vlasov-Poisson error & electric energy      ~5 min
+python experiments/exp_vlasov-poisson_conservation.py    # §6.3 conservation laws                           ~30 s
 ```
 
-Wall-clock budget on a single modern CPU: roughly 5-10 minutes for
-Allen-Cahn and Fokker-Planck, 30-60 minutes per Vlasov-Poisson script.
+Wall-clock estimates above are for a MacBook Pro (Apple M1, 16 GB
+RAM) — the same machine used for the paper.
 
 Outputs go to `experiments/figures/<problem>/`, named
 `allen_cahn_error.{pdf,png}`, `fokker_planck_error.{pdf,png}`, etc.
