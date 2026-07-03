@@ -6,32 +6,13 @@ oblique projections*.
 
 ## Abstract
 
-We study how sketching techniques from randomized numerical linear
-algebra can be incorporated into the dynamical low-rank approximation
-(DLRA) of large-scale matrix differential equations.
+We study how sketching techniques from randomized numerical linear algebra can be incorporated into the dynamical low-rank approximation (DLRA) of large-scale matrix differential equations.
 
-A natural approach is to sketch the Galerkin condition that defines
-the DLRA, which leads to an *oblique* tangent space projection. We
-show that this oblique projection is equivalent to the classical DLRA
-if and only if the sketches make the perpendicular component of the
-vector field orthogonal to the tangent space — automatic on
-low-rank-compatible (LRC) problems, but violated on non-LRC ones such
-as Vlasov-Poisson, where the oblique scheme drifts from the classical
-DLRA dynamics.
+A natural approach is to sketch the Galerkin condition that defines the DLRA, which leads to an oblique tangent space projection. We show that this oblique projection approximately reproduces the standard DLRA only under restrictive conditions on the vector field, and that it fails on problems with a large perpendicular residual.
 
-As an alternative, we propose an *orthogonal* sketch DLRA that evolves
-sketch-orthogonal bases while using standard orthogonal projections
-for the dynamics. This approach preserves the geometric structure of
-the classical DLRA and is numerically stable. The computational
-advantage lies in replacing the Householder QR decomposition — the
-only BLAS-2 bottleneck of standard DLRA integrators — with a
-randomized Gram-Schmidt procedure that uses only BLAS-3 operations,
-making the basis update fully BLAS-3 and well-suited to modern
-accelerators.
+As an alternative, we propose an orthogonal sketch DLRA that evolves sketch-orthogonal bases while using standard orthogonal projections for the dynamics. This approach preserves the geometric structure of the classical DLRA and is numerically stable. The computational advantage of randomized Gram--Schmidt over Householder QR lies in fewer global synchronizations on a row-distributed basis, at a comparable flop count; when the basis is well conditioned, randomized Gram--Schmidt can be replaced by randomized Cholesky QR, which additionally shifts the basis update from BLAS-2 to BLAS-3 kernels, making it well-suited to modern accelerators.
 
-We derive sketch versions of the projector-splitting (KSL) and BUG
-integrators, and demonstrate the approach on the Allen-Cahn,
-Fokker-Planck, and Vlasov-Poisson equations.
+We derive sketch versions of the projector-splitting and BUG integrators, and demonstrate the approach on the Allen--Cahn, Fokker--Planck, and Vlasov--Poisson equations.
 
 ## Authors
 
@@ -40,14 +21,7 @@ Fokker-Planck, and Vlasov-Poisson equations.
 
 ## Citation
 
-```
-@misc{carrel2026sketchdlra,
-  author = {Benjamin Carrel and Laura Grigori},
-  title  = {Sketch low-rank dynamics: orthogonal vs.\ oblique projections},
-  year   = {2026},
-  note   = {Preprint; arXiv reference to follow}
-}
-```
+(Will be updated when available on arXiv.)
 
 ## Installation
 
