@@ -93,12 +93,14 @@ oblique_bug_states = run_sketch_stepwise('oblique_sketch_bug', 'oblique sketch B
 # Electric energy
 def electric_energy_dense(ode, X):
     rho = ode.dv * np.sum(X, axis=1)
-    return ode.dx * np.linalg.norm(ode.electric_field(rho))
+    E = ode.electric_field(rho)
+    return 0.5 * ode.dx * np.sum(E ** 2)
 
 
 def electric_energy_lowrank(ode, Y):
     rho = ode.dv * (Y.U @ Y.S @ np.sum(Y.V.T.conj(), axis=1))
-    return ode.dx * np.linalg.norm(ode.electric_field(rho))
+    E = ode.electric_field(rho)
+    return 0.5 * ode.dx * np.sum(E ** 2)
 
 
 def energy_from_states(states):
