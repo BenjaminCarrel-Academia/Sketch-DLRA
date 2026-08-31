@@ -105,5 +105,22 @@ See `experiments/README.md` for per-experiment details.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 -
-see the `LICENSE` file for details.
+Copyright (c) 2026 Paul Scherrer Institute (PSI). Authors: Benjamin Carrel,
+Laura Grigori.
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. It is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+A PARTICULAR PURPOSE. See the `LICENSE` file for the full text, or
+<https://www.gnu.org/licenses/>.
+
+### Included code
+
+`low_rank_toolbox/` and `matrix_ode_toolbox/` are copies of the authors' own
+research toolboxes, included so that the experiments run standalone. They are
+part of this work and are covered by the licence above. Parts of
+`low_rank_toolbox/` are also published separately, under the MIT licence, at
+[low-rank-toolbox](https://github.com/BenjaminCarrel-Academia/low-rank-toolbox);
+that release stands on its own terms.
