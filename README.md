@@ -21,7 +21,12 @@ We derive sketch versions of the projector-splitting and BUG integrators, and de
 
 ## Citation
 
-(Will be updated when available on arXiv.)
+@article{carrel2026sketch,
+  title={Sketch low-rank dynamics: orthogonal vs. oblique projections},
+  author={Carrel, Benjamin and Grigori, Laura},
+  journal={arXiv preprint arXiv:2607.03402},
+  year={2026}
+}
 
 ## Installation
 
